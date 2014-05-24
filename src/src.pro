@@ -70,6 +70,7 @@ unix:!macx {
                ../platforms/unix/platform_x11_hotkey.h \
                 platform_base_hotkey.h \
                 platform_base_hottrigger.h
+    LIBS += -lX11
 
     PREFIX = /usr
     DEFINES += SKINS_PATH=\\\"$$PREFIX/share/launchy/skins/\\\" \

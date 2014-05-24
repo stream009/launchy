@@ -15,6 +15,7 @@ class UnixIconProvider : public QFileIconProvider
     QHash<QString, QString> desktop2icon;
     QHash<QString, QString> icon2path;
     QStringList xdgDataDirs;
+    const QString xdgDataHome;
  public:
     UnixIconProvider();
     ~UnixIconProvider() {}

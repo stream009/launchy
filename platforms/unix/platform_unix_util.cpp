@@ -1,13 +1,20 @@
 #include "platform_unix_util.h"
 
 
+#include <cstdlib>
 #include <QPixmap>
 #include <QIcon>
 #include <QDebug>
 #include <QPainter>
 #include <QProcess>
 
-UnixIconProvider::UnixIconProvider() {
+namespace {
+    QString getXdgDataHome();
+}
+
+UnixIconProvider::UnixIconProvider()
+    : xdgDataHome(getXdgDataHome())
+{
     foreach(QString line, QProcess::systemEnvironment()) {
 	if (!line.startsWith("XDG_DATA_DIRS", Qt::CaseInsensitive))
 	    continue;
@@ -145,6 +152,10 @@ QString UnixIconProvider::getDesktopIcon(QString desktopFile, QString IconName) 
 	QStringList dirs;	
 	dirs += QDir::homePath() + "/.icons" + themes[0];
 
+        foreach(QString thm, themes) {
+            dirs += xdgDataHome + "/icons" + thm;
+        }
+
 	foreach(QString dir, xdgDataDirs) {
 	    foreach(QString thm, themes) {
 		dirs += dir + "/icons" + thm;
@@ -178,4 +189,25 @@ QString UnixIconProvider::getDesktopIcon(QString desktopFile, QString IconName) 
 
 
     return iconPath;
+}
+
+namespace {
+
+QString getXdgDataHome()
+{
+    QString result;
+
+    const char *env = getenv("XDG_DATA_HOME");
+
+    if (env) {
+        result = env;
+    } else {
+        const char *home = getenv("HOME");
+        if (home) result += home;
+        result += "/.local/share";
+    }
+
+    return result;
+}
+
 }

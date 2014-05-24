@@ -1,1 +1,7 @@
 *.swp
+build
+release
+debug
+Makefile
+Makefile.*
+src/ui_options.h

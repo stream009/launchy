@@ -209,8 +209,11 @@ void runProgram(QString path, QString args) {
         /* special case for KDE since some apps start behind other windows */
         cmd = "kstart --activate " + path.trimmed() + " " + args.trimmed();
     } else /* gnome, xfce, etc */ {
-        path.replace("\"", "\\\"");
-        args.replace("\"", "\\\"");
+        // QProcess require triple double-quote for escaping double-quote.
+        // See parseCombinedArgString() in corelib/io/qprocess.cpp for detail.
+        path.replace("\"", "\"\"\"");
+        args.replace("\"", "\"\"\"");
+
         cmd = "sh -c \"" + path.trimmed() + " " + args.trimmed() + "\"";
      }
 

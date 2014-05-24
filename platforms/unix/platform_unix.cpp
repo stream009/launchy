@@ -170,7 +170,7 @@ void PlatformUnix::alterItem(CatItem* item) {
 	else if (line.startsWith("Icon", Qt::CaseInsensitive))
 	    icon = line.split("=")[1].trimmed();
 	else if (line.startsWith("Exec", Qt::CaseInsensitive))
-	    exe = line.split("=")[1].trimmed();	
+	    exe = line.section("=", 1).trimmed();
     }
     if (name.size() >= item->shortName.size() - 8) {
 	item->shortName = name;

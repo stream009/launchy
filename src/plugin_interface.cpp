@@ -196,6 +196,10 @@ void runProgram(QString path, QString args) {
         args = "";
    }
 
+    // un-escape backslash in XDG string.  TODO \s \n \t \r
+    // http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#value-types
+    path.replace("\\\\", "\\");
+
     QString cmd;
 
     if( !info.isExecutable() || info.isDir() ){

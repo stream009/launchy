@@ -645,6 +645,13 @@ void LaunchyWidget::alternativesKeyPressEvent(QKeyEvent* event)
 
 void LaunchyWidget::keyPressEvent(QKeyEvent* event)
 {
+#ifdef Q_WS_X11
+    // ignore hotkey
+    if (event->modifiers() + event->key() == getHotkey()) {
+        return;
+    }
+#endif
+
 	if (event->key() == Qt::Key_Escape)
 	{
 		if (alternatives->isVisible())

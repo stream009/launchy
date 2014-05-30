@@ -54,7 +54,7 @@ LaunchyWidget::LaunchyWidget(CommandFlags command) :
 	QWidget(NULL, Qt::FramelessWindowHint | Qt::Tool),
 #endif
 #ifdef Q_WS_X11
-        QWidget(NULL, Qt::FramelessWindowHint | Qt::Tool),
+        QWidget(NULL, Qt::FramelessWindowHint | Qt::SplashScreen),
 #endif
 #ifdef Q_WS_MAC
         QWidget(NULL, Qt::FramelessWindowHint),

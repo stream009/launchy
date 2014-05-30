@@ -492,7 +492,8 @@ void LaunchyWidget::focusOutEvent(QFocusEvent* event)
 	if (event->reason() == Qt::ActiveWindowFocusReason)
 	{
 		if (gSettings->value("GenOps/hideiflostfocus", false).toBool() &&
-			!isActiveWindow() && !alternatives->isActiveWindow() && !optionsOpen)
+			!isActiveWindow() && !alternatives->isActiveWindow() &&
+            !optionsOpen && !isHidden())
 		{
 			hideLaunchy();
 		}

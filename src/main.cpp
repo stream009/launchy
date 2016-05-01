@@ -54,7 +54,7 @@ LaunchyWidget::LaunchyWidget(CommandFlags command) :
 	QWidget(NULL, Qt::FramelessWindowHint | Qt::Tool),
 #endif
 #ifdef Q_WS_X11
-        QWidget(NULL, Qt::FramelessWindowHint | Qt::SplashScreen),
+        QWidget(NULL, Qt::FramelessWindowHint),
 #endif
 #ifdef Q_WS_MAC
         QWidget(NULL, Qt::FramelessWindowHint),
@@ -491,9 +491,9 @@ void LaunchyWidget::focusOutEvent(QFocusEvent* event)
 {
 	if (event->reason() == Qt::ActiveWindowFocusReason)
 	{
-		if (gSettings->value("GenOps/hideiflostfocus", false).toBool() &&
-			!isActiveWindow() && !alternatives->isActiveWindow() &&
-            !optionsOpen && !isHidden())
+                if (gSettings->value("GenOps/hideiflostfocus", false).toBool() &&
+			!isActiveWindow() && !alternatives->isVisible() &&
+                        !optionsOpen && !isHidden())
 		{
 			hideLaunchy();
 		}
